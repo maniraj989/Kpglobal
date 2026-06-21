@@ -299,6 +299,119 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update slider on resize
     window.addEventListener('resize', updateSlider);
     
+    // Swipe/Touch gesture support for mobile and desktop swiping
+    let startX = 0;
+    let startY = 0;
+    let isDragging = false;
+    let currentTranslate = 0;
+    let prevTranslate = 0;
+    let dragThresholdOccurred = false;
+
+    // Prevent native drag and drop behavior on links/images inside the track
+    track.addEventListener('dragstart', (e) => e.preventDefault());
+
+    track.addEventListener('pointerdown', dragStart);
+    track.addEventListener('pointermove', dragMove);
+    track.addEventListener('pointerup', dragEnd);
+    track.addEventListener('pointercancel', dragEnd);
+
+    // Intercept clicks on links if a drag occurred
+    track.addEventListener('click', (e) => {
+      if (dragThresholdOccurred) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }, true); // Capture phase
+
+    function dragStart(event) {
+      // Only handle left click or touch pointers
+      if (event.button !== 0 && event.pointerType === 'mouse') return;
+      
+      startX = event.clientX;
+      startY = event.clientY;
+      isDragging = true;
+      dragThresholdOccurred = false;
+      
+      // Capture the pointer to receive events even if they drag outside track bounds
+      try {
+        track.setPointerCapture(event.pointerId);
+      } catch (err) {}
+      
+      // Disable CSS transitions during drag for responsive, lag-free movement
+      track.style.transition = 'none';
+      
+      const cardWidth = cards[0].offsetWidth;
+      const gap = parseFloat(window.getComputedStyle(track).gap) || 32;
+      prevTranslate = -currentIndex * (cardWidth + gap);
+      currentTranslate = prevTranslate;
+    }
+
+    function dragMove(event) {
+      if (!isDragging) return;
+      const currentX = event.clientX;
+      const currentY = event.clientY;
+      const diffX = currentX - startX;
+      const diffY = currentY - startY;
+
+      // Only handle swipe if it is predominantly horizontal
+      if (Math.abs(diffX) > Math.abs(diffY)) {
+        if (Math.abs(diffX) > 10) {
+          dragThresholdOccurred = true;
+        }
+        
+        currentTranslate = prevTranslate + diffX;
+        
+        // Add resistance/rubberband effect if dragging past boundaries
+        const visibleCards = getVisibleCards();
+        const maxIndex = Math.max(0, totalCards - visibleCards);
+        const cardWidth = cards[0].offsetWidth;
+        const gap = parseFloat(window.getComputedStyle(track).gap) || 32;
+        const minTranslate = 0;
+        const maxTranslate = -maxIndex * (cardWidth + gap);
+
+        if (currentTranslate > minTranslate) {
+          currentTranslate = minTranslate + (currentTranslate - minTranslate) * 0.3; // Resistance
+        } else if (currentTranslate < maxTranslate) {
+          currentTranslate = maxTranslate + (currentTranslate - maxTranslate) * 0.3; // Resistance
+        }
+
+        track.style.transform = `translateX(${currentTranslate}px)`;
+      }
+    }
+
+    function dragEnd(event) {
+      if (!isDragging) return;
+      isDragging = false;
+      
+      // Release pointer capture
+      try {
+        track.releasePointerCapture(event.pointerId);
+      } catch (err) {}
+      
+      // Restore CSS transitions by removing inline style
+      track.style.transition = '';
+      
+      const cardWidth = cards[0].offsetWidth;
+      const gap = parseFloat(window.getComputedStyle(track).gap) || 32;
+      const movedBy = currentTranslate - prevTranslate;
+      const visibleCards = getVisibleCards();
+      const maxIndex = Math.max(0, totalCards - visibleCards);
+
+      // Swipe threshold: 50px
+      if (movedBy < -50 && currentIndex < maxIndex) {
+        currentIndex++;
+      } else if (movedBy > 50 && currentIndex > 0) {
+        currentIndex--;
+      }
+
+      updateSlider();
+
+      // Reset drag threshold slightly later to allow click event listener to run
+      setTimeout(() => {
+        dragThresholdOccurred = false;
+      }, 50);
+    }
+
     // Initial call after a brief timeout to let DOM render
     setTimeout(updateSlider, 100);
   }
