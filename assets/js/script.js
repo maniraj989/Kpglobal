@@ -421,4 +421,34 @@ document.addEventListener('DOMContentLoaded', () => {
       contactForm.style.display = 'flex';
     });
   }
+
+  // Mobile Navigation Drawer Toggle Controller
+  const navMenu = document.getElementById('nav-menu-el');
+  const openMenuBtn = document.getElementById('menu-toggle-open');
+  const closeMenuBtn = document.getElementById('menu-toggle-close');
+  const menuOverlay = document.getElementById('menu-overlay-el');
+
+  if (openMenuBtn && closeMenuBtn && navMenu && menuOverlay) {
+    const toggleMenu = (isOpen) => {
+      if (isOpen) {
+        navMenu.classList.add('is-active');
+        menuOverlay.classList.add('is-active');
+        document.body.classList.add('menu-open');
+      } else {
+        navMenu.classList.remove('is-active');
+        menuOverlay.classList.remove('is-active');
+        document.body.classList.remove('menu-open');
+      }
+    };
+
+    openMenuBtn.addEventListener('click', () => toggleMenu(true));
+    closeMenuBtn.addEventListener('click', () => toggleMenu(false));
+    menuOverlay.addEventListener('click', () => toggleMenu(false));
+
+    // Auto-close menu drawer when clicking a navigation link
+    const navLinks = navMenu.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => toggleMenu(false));
+    });
+  }
 });

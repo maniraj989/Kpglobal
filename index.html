@@ -17,6 +17,9 @@
     <!-- Animated Interactive Canvas Background -->
     <canvas id="particle-canvas"></canvas>
 
+    <!-- Mobile Navigation Backdrop Overlay -->
+    <div class="menu-overlay" id="menu-overlay-el"></div>
+
     <!-- Main Content Container -->
     <div class="page-container">
 
@@ -30,8 +33,24 @@
                 <span class="logo-text">kpglobal574</span>
             </a>
 
+            <!-- Menu Opener (Hamburger) for mobile -->
+            <button class="menu-toggle-open" id="menu-toggle-open" aria-label="Open Menu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+
             <!-- Centered Navigation menu -->
-            <nav class="nav-menu">
+            <nav class="nav-menu" id="nav-menu-el">
+                <!-- Menu Closer for mobile inside the nav menu -->
+                <button class="menu-toggle-close" id="menu-toggle-close" aria-label="Close Menu">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
                 <a href="#home" class="nav-link">Home</a>
                 <a href="#services" class="nav-link">Services</a>
                 <a href="#platforms" class="nav-link">Platforms</a>
