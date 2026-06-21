@@ -1,0 +1,10 @@
+# Local database submissions
+contact_submissions.json
+
+# Logs
+*.log
+*.ps1.log
+
+# System files
+.DS_Store
+Thumbs.db
