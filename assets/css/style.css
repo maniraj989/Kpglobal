@@ -1519,20 +1519,20 @@ body.menu-open {
   box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
 }
 
-/* 3. X Card */
-.social-card.card-social-x {
+/* 3. TikTok Card */
+.social-card.card-social-tiktok {
   border-color: rgba(255, 255, 255, 0.12);
 }
-.social-card.card-social-x:hover {
-  border-color: rgba(255, 255, 255, 0.6);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 255, 255, 0.18), inset 0 0 10px rgba(255, 255, 255, 0.05);
+.social-card.card-social-tiktok:hover {
+  border-color: rgba(37, 244, 238, 0.65); /* Teal glow highlight */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(254, 44, 85, 0.35), inset 0 0 10px rgba(37, 244, 238, 0.15); /* Red/Teal mixed shadow */
 }
-.btn-x {
+.btn-tiktok {
   background: rgba(255, 255, 255, 0.03);
   border-color: rgba(255, 255, 255, 0.15);
   color: #ffffff;
 }
-.btn-x:hover {
+.btn-tiktok:hover {
   background: rgba(255, 255, 255, 0.12);
   box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15);
 }
@@ -1556,23 +1556,23 @@ body.menu-open {
   box-shadow: 0 4px 15px rgba(225, 48, 108, 0.3);
 }
 
-/* 5. Discord Card */
-.social-card.card-social-discord {
-  border-color: rgba(88, 101, 242, 0.22);
+/* 5. Facebook Card */
+.social-card.card-social-facebook {
+  border-color: rgba(24, 119, 242, 0.22);
 }
-.social-card.card-social-discord:hover {
-  border-color: rgba(88, 101, 242, 0.75);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(88, 101, 242, 0.35), inset 0 0 10px rgba(88, 101, 242, 0.15);
+.social-card.card-social-facebook:hover {
+  border-color: rgba(24, 119, 242, 0.75);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(24, 119, 242, 0.35), inset 0 0 10px rgba(24, 119, 242, 0.15);
 }
-.btn-discord {
-  background: rgba(88, 101, 242, 0.08);
-  border-color: rgba(88, 101, 242, 0.3);
-  color: #5865F2;
+.btn-facebook {
+  background: rgba(24, 119, 242, 0.08);
+  border-color: rgba(24, 119, 242, 0.3);
+  color: #1877f2;
 }
-.btn-discord:hover {
-  background: rgba(88, 101, 242, 0.25);
+.btn-facebook:hover {
+  background: rgba(24, 119, 242, 0.25);
   color: #ffffff;
-  box-shadow: 0 4px 15px rgba(88, 101, 242, 0.3);
+  box-shadow: 0 4px 15px rgba(24, 119, 242, 0.3);
 }
 
 /* Responsive grid modifications */
@@ -1587,7 +1587,7 @@ body.menu-open {
     grid-template-columns: repeat(2, 1fr) !important; /* 2 columns staggered */
     gap: 1rem !important;
   }
-  .social-card.card-social-discord {
+  .social-card.card-social-facebook {
     grid-column: span 2 !important;
     justify-self: center !important;
     width: 100% !important;
