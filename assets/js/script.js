@@ -492,29 +492,42 @@ document.addEventListener('DOMContentLoaded', () => {
           <svg class="send-icon-svg animate-spin" viewBox="0 0 24 24" style="animation: spin 1s linear infinite;"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" opacity="0.25" stroke-dasharray="80" stroke-dashoffset="60"></circle></svg>
         `;
 
-        const formData = {
-          name: contactForm.querySelector('#contact-name').value.trim(),
-          email: contactForm.querySelector('#contact-email').value.trim(),
-          telegram: contactForm.querySelector('#contact-telegram').value.trim(),
-          subject: contactForm.querySelector('#contact-subject').value,
-          message: contactForm.querySelector('#contact-message').value.trim()
-        };
+        const name = contactForm.querySelector('#contact-name').value.trim();
+        const email = contactForm.querySelector('#contact-email').value.trim();
+        const telegram = contactForm.querySelector('#contact-telegram').value.trim();
+        const subject = contactForm.querySelector('#contact-subject').value;
+        const message = contactForm.querySelector('#contact-message').value.trim();
 
-        fetch('/api/contact', {
+        // Map select values to the exact labels in Google Form
+        const inquiryMapping = {
+          'crypto-vip-signals': 'Crypto VIP Signals Access',
+          'forex-vip-signals': 'Forex VIP Signals Access',
+          'master-course': 'Master Trader Course',
+          'other': 'German Support and More Inquiry'
+        };
+        const mappedSubject = inquiryMapping[subject] || '';
+
+        const urlParams = new URLSearchParams();
+        urlParams.append('entry.1003790600', name);
+        urlParams.append('entry.1995589084', email);
+        urlParams.append('entry.757512051', telegram);
+        urlParams.append('entry.87036136', mappedSubject);
+        urlParams.append('entry.1846439683', message);
+
+        fetch('https://docs.google.com/forms/d/e/1FAIpQLSdicQYCsCkkmdNlNEufjUlo7Bm2KBTUveP-JIRqJMt7itGrzw/formResponse', {
           method: 'POST',
+          mode: 'no-cors',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/x-www-form-urlencoded'
           },
-          body: JSON.stringify(formData)
+          body: urlParams
         })
-        .then(response => {
-          if (response.ok) {
-            // Hide Form and Show Success state
-            contactForm.style.display = 'none';
-            contactSuccessState.style.display = 'flex';
-          } else {
-            alert('Failed to send message. Please try again or contact us directly via Telegram.');
-          }
+        .then(() => {
+          // Since we use mode: 'no-cors', we cannot read the response status or body.
+          // The browser treats any network resolution as successful.
+          // Hide Form and Show Success state
+          contactForm.style.display = 'none';
+          contactSuccessState.style.display = 'flex';
         })
         .catch(error => {
           console.error('Error submitting form:', error);
