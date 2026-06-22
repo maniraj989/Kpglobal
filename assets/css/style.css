@@ -145,9 +145,38 @@ body {
   left: 0;
 }
 
+/* Header Actions Right (Group container) */
+.header-actions-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-self: end;
+}
+
+/* Header Login Button */
+.header-login-btn {
+  background: var(--primary-gold);
+  color: var(--bg-color);
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.6rem 1.6rem;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05), 0 4px 15px rgba(255, 190, 26, 0.25);
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.header-login-btn:hover {
+  background: var(--primary-gold-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 190, 26, 0.4);
+}
+
 /* Header Telegram Button */
 .header-telegram-btn {
-  justify-self: end;
   background: var(--nav-bg);
   border: 1px solid var(--nav-border);
   color: var(--text-white);
@@ -1080,16 +1109,63 @@ body.menu-open {
     margin: 0 auto;
   }
   .services-section, .insights-section, .platforms-section {
-    padding: 4rem 4%;
+    padding: 3rem 4%;
   }
   
-  /* Hide slide arrows, swipe/dots are enough */
-  .slider-arrow {
-    display: none;
+  /* Hide slide arrows and indicator dots, the 2x2 grid is fully visible */
+  .slider-arrow, .slider-dots {
+    display: none !important;
+  }
+  
+  /* Convert slider track to 2x2 grid */
+  .slider-track {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.8rem !important;
+    transform: none !important;
+    width: 100% !important;
   }
   
   .platform-card {
-    flex: 0 0 100%; /* Show 1 card */
+    flex: none !important;
+    width: 100% !important;
+    padding: 1.5rem 0.8rem 1.8rem 0.8rem !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45) !important;
+    border-radius: 12px !important;
+  }
+
+  .platform-logo-box {
+    margin-bottom: 1.2rem !important;
+    height: 50px !important;
+  }
+
+  /* Specific sizing for mobile logo brands inside the compact grid */
+  .platform-logo-box.brand-vantage { width: 95px !important; }
+  .platform-logo-box.brand-xm { width: 95px !important; }
+  .platform-logo-box.brand-exness { width: 55px !important; height: 55px !important; }
+  .platform-logo-box.brand-delta { width: 95px !important; }
+
+  /* Hide descriptions on mobile view for a clean grid matching the screenshot */
+  .platform-desc-text {
+    display: none !important;
+  }
+  
+  .platform-title {
+    margin-bottom: 1.4rem !important;
+    font-size: 1.05rem !important;
+    font-weight: 700 !important;
+  }
+
+  .platform-btn {
+    border-radius: 8px !important;
+    padding: 0.65rem 1rem !important;
+    font-size: 0.85rem !important;
+    width: 100% !important;
+  }
+
+  /* Margins adjustment for title and subtext */
+  .section-subtitle {
+    margin-bottom: 2rem !important;
   }
 }
 
@@ -1099,15 +1175,52 @@ body.menu-open {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 1.2rem 6%;
+    width: calc(100% - 2rem) !important;
+    margin: 1rem 1rem 0 1rem !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 50px !important;
+    padding: 0.65rem 1.4rem !important;
+    background: rgba(10, 10, 14, 0.8) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.05) !important;
+    top: 0 !important;
+    left: 0 !important;
   }
 
   .logo-container {
     justify-self: flex-start;
   }
 
+  .header-actions-right {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .header-login-btn {
+    background: var(--primary-gold) !important;
+    color: var(--bg-color) !important;
+    padding: 0.5rem 1.1rem !important;
+    border-radius: 50px !important;
+    font-size: 0.85rem !important;
+    font-weight: 700 !important;
+    box-shadow: 0 4px 12px rgba(255, 190, 26, 0.3) !important;
+  }
+
+  .header-telegram-btn {
+    display: none !important;
+  }
+
   .menu-toggle-open {
     display: flex;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: var(--text-white) !important;
+    width: auto !important;
+    height: auto !important;
+    padding: 0 !important;
   }
 
   .nav-menu {

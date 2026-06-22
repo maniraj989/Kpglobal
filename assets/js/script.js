@@ -212,6 +212,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function updateSlider() {
+      if (window.innerWidth <= 768) {
+        // Let CSS grid take over inline flex styles and layout on mobile
+        cards.forEach(card => {
+          card.style.flex = '';
+        });
+        track.style.transform = '';
+        return;
+      }
       const visibleCards = getVisibleCards();
       const maxIndex = Math.max(0, totalCards - visibleCards);
       
@@ -324,6 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, true); // Capture phase
 
     function dragStart(event) {
+      if (window.innerWidth <= 768) return; // Disable dragging on mobile grid
       // Only handle left click or touch pointers
       if (event.button !== 0 && event.pointerType === 'mouse') return;
       
