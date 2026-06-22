@@ -1199,13 +1199,7 @@ body.menu-open {
   }
 
   .header-login-btn {
-    background: var(--primary-gold) !important;
-    color: var(--bg-color) !important;
-    padding: 0.5rem 1.1rem !important;
-    border-radius: 50px !important;
-    font-size: 0.85rem !important;
-    font-weight: 700 !important;
-    box-shadow: 0 4px 12px rgba(255, 190, 26, 0.3) !important;
+    display: none !important;
   }
 
   .header-telegram-btn {
